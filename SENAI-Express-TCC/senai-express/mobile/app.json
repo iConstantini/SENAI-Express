@@ -1,0 +1,25 @@
+
+{
+  "expo": {
+    "name": "SENAI Express",
+    "slug": "senai-express",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "package": "br.com.senaiexpress.app"
+    },
+    "plugins": [
+      "expo-status-bar",
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#B91C2B"
+        }
+      ]
+    ]
+  }
+}

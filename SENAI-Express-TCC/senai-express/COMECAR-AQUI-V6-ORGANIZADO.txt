@@ -1,0 +1,53 @@
+SENAI EXPRESS V6 STUDIO — PERFIL ORGANIZADO E AGENDA
+====================================================
+
+O QUE FOI ALTERADO
+- Tela Minha conta reorganizada em grupos e itens compactos.
+- Tela separada Editar perfil (nome e foto).
+- Acesso separado a pedidos, favoritos, notificacoes, pontos, suporte e agendamento.
+- Calendario semanal navegavel para retirada; mostra SOMENTE horarios disponiveis do MySQL.
+- No painel administrativo: Gerenciar horarios > Gerar agenda completa.
+- Gera 57 faixas de 15 minutos: 07:45-08:00 ate 21:45-22:00.
+- Geracao nao duplica horarios com o mesmo inicio ja existentes.
+- Validacao de capacidade de retirada continua no backend.
+- Corrigido o carregamento de dotenv no script create-admin.js.
+- Adicionada dependencia expo-image-picker no package.json.
+
+IMPORTANTE: PRESERVE O BANCO E AS SENHAS
+1. NAO execute o SQL de instalacao de novo em um banco que ja funciona.
+2. NAO apague o banco senai_express_v6, nem seu projeto V3.
+3. Este ZIP NAO contem seu arquivo backend/.env. Copie o .env da sua V6 atual.
+4. O IP em mobile/src/config.ts e um placeholder. Substitua pelo IPv4 atual do seu PC.
+5. A carteira e os pagamentos continuam demonstrativos, NAO sao dinheiro real.
+
+INSTALACAO PASSO A PASSO NO WINDOWS (CMD)
+1. Extraia o ZIP em outra pasta; nao sobrescreva a V3.
+2. Copie o arquivo backend/.env da V6 que ja funciona para a pasta backend desta versao.
+3. Abra mobile/src/config.ts e troque SEU_IP_ATUAL pelo IPv4 atual do PC (ipconfig).
+4. No CMD, entre na pasta senai-express\backend e execute:
+      npm install
+      npm run dev
+   Deixe esse CMD aberto. Deve aparecer localhost:3334.
+5. Abra OUTRO CMD, entre na pasta senai-express\mobile e execute:
+      npm install
+      npx expo install expo-image-picker
+      npx expo start -c
+6. Escaneie o QR Code no Expo Go, no mesmo Wi-Fi.
+7. Entre na conta. Perfil > Agendar retirada mostra datas e horarios existentes.
+8. Para gerar horarios, entre como admin > Agenda de horarios:
+   - Digite a data AAAA-MM-DD (ex.: 2026-11-09)
+   - Digite capacidade (ex.: 10)
+   - Toque Gerar horarios do dia.
+   - Volte ao app do aluno e toque Atualizar disponibilidade.
+
+BANCO DE DADOS
+- Usa as tabelas existentes em senai_express_v6, especialmente horarios_retirada e pedidos.
+- Nao ha migracao SQL obrigatoria nesta atualizacao.
+- A criacao de horario so grava no banco quando um administrador usa a nova funcao.
+- Nao existe reserva avulsa: a confirmacao ocorre ao finalizar um pedido com horario.
+
+LIMITACOES / TESTES
+- Os arquivos foram revisados e o backend passou na verificacao de sintaxe do Node.
+- Nao foi possivel executar o MySQL nem o Expo Go do seu computador neste ambiente.
+- A grade mostra dias em faixas de 7, nao um calendario mensal completo.
+- Horarios e disponibilidade dependem da configuracao e acesso de rede do seu PC.

@@ -1,0 +1,62 @@
+# COMO INICIAR — SENAI EXPRESS V6 STUDIO (CMD DO WINDOWS)
+
+## 1. Extraia o ZIP em uma pasta NOVA
+Não substitua a V3. Abra a pasta SENAI-Express-TCC\senai-express no VS Code.
+
+## 2. MySQL
+Se você JÁ tem senai_express_v6 e suas tabelas, NÃO rode o SQL de instalação novamente.
+No MySQL Workbench confira:
+  SHOW DATABASES;
+  USE senai_express_v6;
+  SHOW TABLES;
+Se NÃO existe, abra database\INSTALAR_BANCO_V6.sql no Workbench e execute uma vez.
+O servidor MySQL pode ser o mesmo usado pela V3, com banco separado.
+
+## 3. Backend — PRIMEIRO terminal CMD
+Abra um CMD na pasta backend do projeto extraído.
+  copy .env.example .env
+Edite backend\.env no VS Code. Configure:
+  PORT=3334
+  DB_HOST=127.0.0.1
+  DB_PORT=3306
+  DB_USER=SEU_USUARIO_MYSQL
+  DB_PASSWORD=SUA_SENHA_MYSQL
+  DB_NAME=senai_express_v6
+  JWT_SECRET=UMA_CHAVE_ALEATORIA_COM_PELO_MENOS_32_CARACTERES
+  ADMIN_NAME=Administrador SENAI Express
+  ADMIN_EMAIL=admin@senai.local
+  ADMIN_PASSWORD=UMA_SENHA_FORTE_COM_10_OU_MAIS_CARACTERES
+Para gerar JWT_SECRET, no CMD execute:
+  node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+Depois, ainda em backend:
+  npm install
+  npm run create-admin
+  npm run dev
+Deixe este terminal aberto. Teste http://localhost:3334/api/health no navegador do PC.
+Se o admin já existir, create-admin atualiza a senha conforme o .env.
+
+## 4. Mobile — SEGUNDO terminal CMD
+Abra outro CMD na pasta mobile do projeto extraído.
+  ipconfig
+Veja o IPv4 do adaptador Wi-Fi do PC. Edite mobile\src\config.ts:
+  export const API_URL = 'http://SEU_IPV4:3334/api';
+Substitua SEU_IPV4 pelo endereço real, por exemplo 192.168.1.50 (exemplo apenas).
+No CMD na pasta mobile:
+  npm install
+  npx expo start -c
+Abra Expo Go no celular e escaneie o QR. PC e celular na mesma rede Wi-Fi.
+Se o celular não acessar, teste http://SEU_IPV4:3334/api/health no navegador do celular e verifique o firewall.
+
+## 5. Nas próximas vezes
+Inicie o MySQL se necessário.
+Terminal 1 na pasta backend: npm run dev
+Terminal 2 na pasta mobile: npx expo start -c
+
+## Correções neste pacote
+- Removidas 6 referências ao componente Nav inexistente no mobile/App.js.
+- Mantido o TopNav superior existente.
+- Corrigida a resolução das dependências do script database/create-admin.js para usar as instaladas no backend (não precisa npm install na raiz).
+
+## Limites
+Não foi possível testar o projeto no seu Windows, aparelho ou MySQL. O pacote mantém os recursos existentes e pagamentos simulados; não implementa Face ID, pagamentos reais ou todas as funções futuras.
+Não compartilhe seu arquivo .env nem senhas.
